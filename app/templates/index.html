@@ -1,0 +1,89 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="row">
+    <!-- main -->
+    <div class="col-7">
+        <div id="title">
+            <h2>Tweet　
+                <font size="4">
+                    <span id="ins">現在のキーワード：※指定されていません</span>
+                </font>
+            </h2>
+        </div>
+        <div id="tweet"></div>
+    </div>
+    <!-- endmain -->
+
+    <!-- sub -->
+    <div class="col-4">
+        <br>
+        <h3>検索</h3>
+        <p>キーワードを入力してください。</p>
+        <label class="sr-only" for="inlineFormInputName2">検索ワード</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="key" name="name" placeholder="#Niziu">
+        <button type="submit" class="btn btn-danger mb-2" onclick="setK();">SET</button>
+        <br><br>
+        <h4>現在のトレンド
+            <button type="submit" class="btn btn-danger mb-2">↺</button>
+        </h4>
+
+        {% for item in items %}
+        <p><a>{{ item }}</a></p>
+        {% endfor %}
+
+
+    </div>
+    <!-- endsub -->
+</div>
+<!-- error: 別ファイルでのJSの扱い -->
+{% endblock content %}
+
+{% block addJS %}
+<script src="/static/JS/voice.js"></script>
+<script>
+
+    var $scrollY = 1000000000000;
+
+    function autoScroll() {
+        var $sampleBox = document.getElementById("tweet");
+
+        if ($scrollY < $sampleBox.scrollHeight - $sampleBox.clientHeight) {
+        } else {
+            $scrollY = $scrollY + 1000;
+            $sampleBox.scrollTop = $sampleBox.scrollTop + 200;
+        }
+    }
+</script>
+
+<script>
+    /////////　カウント処理/////////
+    var countupVal;
+
+    window.onload = function () {
+        countupVal = setInterval('getData();', 8000);
+    };
+
+    const getData = () => {
+        //取得するデータ範囲の設定f
+        firebase.database().ref('/another_resource/').once('value').then(function (snapshot) {
+            var allData = snapshot.val();
+            const day = (allData['record']['day']);
+            const text = (allData['record']['text']);
+            // 挿入
+            document.getElementById("tweet").innerHTML += "<p>" + day + "<br>" + text + "</p>";
+            autoScroll();
+        });
+    };
+
+    function setK() {
+        setKey = document.getElementById("key").value;
+        document.getElementById("ins").innerHTML = `現在のキーワード：${setKey}`
+        document.getElementById("tweet").innerHTML += `<p><span style="background-color:#ffcc99">キーワード：${setKey}がセットされました。</span></p>`
+        firebase.database().ref('/key/').set({
+            keyword: setKey,
+        });
+    }
+
+</script>
+{% endblock addJS %}

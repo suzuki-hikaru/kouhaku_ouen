@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- css -->
+    <link rel="stylesheet" href="/static/CSS/style.css">
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/static/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta charset="UTF-8">
+    <title>Twitter×紅白</title>
+</head>
+
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-white bg-danger">
+        <a class="navbar-brand" id="white" href="/selectMode">TW×紅白</a>
+        <ul class="right hide-on-med-and-down">
+            <button class="btn btn-light mb-2" onclick="logout();" id="black">ログアウト</button>
+        </ul>
+    </nav>
+
+    <!-- コンテンツ -->
+    <div class="container">
+        <br><br>
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <!-- add:フッター -->
+
+    <!-- firebase CDN -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
+    <!-- firebase ui CDN  -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <!-- js -->
+    <script src="/static/key/config.js"></script>
+
+    {% block addJS %}
+    {% endblock addJS %}
+</body>
+
+</html>
