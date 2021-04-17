@@ -17,7 +17,7 @@ api = tweepy.API(auth)
 ''' Firebaseの設定 '''
 cred = credentials.Certificate('./config.json')
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://kouhaku-default-rtdb.firebaseio.com',
+    'databaseURL': '111111111111111111111111111111',
     'databaseAuthVariableOverride': {
         'uid': 'my-service-worker'
     }
